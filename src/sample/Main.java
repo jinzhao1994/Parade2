@@ -132,9 +132,9 @@ public class Main extends Application {
 
             this.getChildren().add(new NewGameButton("Stupid Computer",0));
             this.getChildren().add(new NewGameButton("Normal Computer",1));
-            this.getChildren().add(new NewGameButton("Smart Computer",2));
-            this.getChildren().add(new NewGameButton("Wise Computer",3));
-            this.getChildren().add(new NewGameButton("Cheating Computer",4));
+            this.getChildren().add(new NewGameButton("Normal Computer",2)); //smart
+            this.getChildren().add(new NewGameButton("Normal Computer",3)); //wise
+            this.getChildren().add(new NewGameButton("Normal Computer",4)); //cheating
 
             Text option=new Text("~ Option ~");
             option.setFont(new Font("Blackadder ITC",30));

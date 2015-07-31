@@ -134,6 +134,7 @@ public class View extends AnchorPane {
                 ani--;
                 checkState();
                 View.this.update(model);
+
             }
         });
         seq.play();
@@ -215,6 +216,21 @@ public class View extends AnchorPane {
                 }
             });
             fa.play();
+        }
+        if (model.state==5&&cei==-1) {
+            Model tmp=(Model)model.clone();
+            cei=tmp.opp.chooseEndCards(4);
+            tmp.opp.end(cei);
+            cej=tmp.opp.chooseEndCards(3);
+            if (cej>=cei) cej++;
+            ParallelTransition par=new ParallelTransition();
+            TranslateTransition mov1=new TranslateTransition(Duration.millis(500.0),oppHandCards.cards[cei]);
+            TranslateTransition mov2=new TranslateTransition(Duration.millis(500.0),oppHandCards.cards[cej]);
+            mov1.setByY(30.0);
+            mov2.setByY(30.0);
+            par.getChildren().add(mov1);
+            par.getChildren().add(mov2);
+            par.play();
         }
     }
     public Transition startAnimation() {
@@ -609,7 +625,7 @@ public class View extends AnchorPane {
             SequentialTransition seq=new SequentialTransition();
             seq.getChildren().add(myHandCards.playAnimation(i));
             if (back.state!=5)
-                seq.getChildren().add(parade.playAnimation(back.parade.stateIfAdd(cc),cc));
+                seq.getChildren().add(parade.playAnimation(back.parade.stateIfAdd(cc), cc));
             seq.getChildren().add(myLeaveCards.playAnimaTion(back.me.leaveCards,model.me.leaveCards));
             if (back.state==1) seq.getChildren().add(myHandCards.drawAnimation(model.me.handCards[4]));
             ani++;
@@ -620,21 +636,6 @@ public class View extends AnchorPane {
                     View.this.update(model);
                     if (model.state==-1) playEndAnimation();
                     if (model.state!=-1&&model.state!=5) computerRound();
-                    if (model.state==5&&myHandCards.cards[3]!=null) {
-                        Model tmp=(Model)model.clone();
-                        cei=tmp.opp.chooseEndCards(4);
-                        tmp.opp.end(cei);
-                        cej=tmp.opp.chooseEndCards(3);
-                        if (cej>=cei) cej++;
-                        ParallelTransition par=new ParallelTransition();
-                        TranslateTransition mov1=new TranslateTransition(Duration.millis(500.0),oppHandCards.cards[cei]);
-                        TranslateTransition mov2=new TranslateTransition(Duration.millis(500.0),oppHandCards.cards[cej]);
-                        mov1.setByY(30.0);
-                        mov2.setByY(30.0);
-                        par.getChildren().add(mov1);
-                        par.getChildren().add(mov2);
-                        par.play();
-                    }
                 }
             });
             seq.play();
